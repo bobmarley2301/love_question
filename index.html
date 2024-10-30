@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Квещин</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f7f3e9;
+      font-family: Arial, sans-serif;
+      overflow: hidden;
+      margin: 0;
+    }
+    .container {
+      text-align: center;
+      padding: 10px;
+    }
+    .question {
+      font-size: 2em;
+      margin-bottom: 20px;
+    }
+    .button-container {
+      position: relative;
+    }
+    .btn {
+      padding: 15px 30px;
+      font-size: 1.5em;
+      cursor: pointer;
+      margin: 10px;
+      border: none;
+      border-radius: 10px;
+      transition: transform 0.3s;
+    }
+    .yes-btn {
+      background-color: #ff5e5e;
+      color: white;
+    }
+    .no-btn {
+      background-color: #ffbaba;
+      color: #333;
+      position: absolute;
+    }
+    .hearts {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 2em;
+      color: red;
+      animation: float 1s ease infinite;
+    }
+    @keyframes float {
+      0% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+      100% { opacity: 0; transform: translate(-50%, -150px) scale(1.5); }
+    }
+
+    /* Адаптація для мобільних пристроїв */
+    @media (max-width: 600px) {
+      .question {
+        font-size: 1.5em;
+      }
+      .btn {
+        padding: 10px 20px;
+        font-size: 1em;
+      }
+      .hearts {
+        font-size: 1.5em;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="question">Відсмокчеш по братськи?</div>
+    <div class="button-container">
+      <button class="btn yes-btn" onclick="showHearts()">Так</button>
+      <button class="btn no-btn" id="noButton">Ні</button>
+    </div>
+    <div class="hearts" id="hearts" style="display: none;">❤️❤️❤️</div>
+  </div>
+
+  <script>
+    const noButton = document.getElementById('noButton');
+
+    // Перевірка на мобільний пристрій
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+    if (isMobile) {
+      noButton.addEventListener('click', moveButton); // Для мобільних - при кліку
+    } else {
+      noButton.addEventListener('mouseover', moveButton); // Для ПК - при наведенні
+    }
+
+    function moveButton() {
+      const maxX = window.innerWidth - noButton.offsetWidth;
+      const maxY = window.innerHeight - noButton.offsetHeight;
+      const x = Math.random() * maxX;
+      const y = Math.random() * maxY;
+      noButton.style.left = `${x}px`;
+      noButton.style.top = `${y}px`;
+    }
+
+    function showHearts() {
+      const hearts = document.getElementById('hearts');
+      hearts.style.display = 'block';
+      setTimeout(() => {
+        hearts.style.display = 'none';
+      }, 1000);
+    }
+  </script>
+</body>
+</html>
